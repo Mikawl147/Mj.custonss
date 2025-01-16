@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Mjparts/Customizaçoes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #8100b0;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #7d00a3 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .product {
+            background: #fff;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            max-width: 100%;
+        }
+        .product h3 {
+            margin: 0 0 10px;
+        }
+        .product p {
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-XXXXXXXXX-X');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Loja de Produtos</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Produtos</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <section class="home-description">
+            <h2>Bem-vindo à Loja Mjparts/Customizações</h2>
+            <p>Aqui você encontra os melhores produtos para customizar seu veículo. Confira nossas ofertas e novidades!</p>
+        </section>
+        <section class="home-images">
+            <img src="imagem1.jpg" alt="Imagem 1" style="width: 48%; margin-right: 2%;">
+            <img src="imagem2.jpg" alt="Imagem 2" style="width: 48%;">
+        </section>
+        <section class="products">
+            <div class="product">
+                <img src="grade.jpeg"="Produto 1">
+                <h3>Produto 1</h3>
+                <p>Grade Colmei Gol g3 1999/2005</p>
+                <p>R$ 589,90</p>
+                <button onclick="openModal('Produto 1', '589.90')">Comprar com PIX</button>
+            </div>
+            <div class="product">
+                <img src="farol 2.jpeg" alt="Produto 2">
+                <h3>Produto 2</h3>
+                <p>Farol Palio 2005/2012 o par com angels yes</p>
+                <p>R$ 1780,00</p>
+                <button onclick="openModal('Produto 2', '1780.00')">Comprar com PIX</button>
+            </div>
+            <div class="product">
+                <img src="produto3.jpg" alt="Produto 3">
+                <h3>Produto 3</h3>
+                <p>Descrição do produto 3.</p>
+                <p>R$ 300,00</p>
+                <button onclick="openModal('Produto 3', '300.00')">Comprar com PIX</button>
+            </div>
+        </section>
+    </div>
+    <div id="pixModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Pagamento via PIX</h2>
+            <p>Produto: <span id="modalProduto"></span></p>
+            <p>Valor: R$ <span id="modalValor"></span></p>
+            <p>Chave PIX: <span id="pixKey">c6d19db3-549a-4c5c-921f-d906b7336db0</span></p>
+            <button onclick="copyPixKey()">Copiar Chave PIX</button>
+            <p>Copie a chave PIX acima para realizar o pagamento.</p>
+        </div>
+    </div>
+    <script>
+        function openModal(produto, valor) {
+            document.getElementById('modalProduto').textContent = produto;
+            document.getElementById('modalValor').textContent = valor;
+            document.getElementById('pixModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('pixModal').style.display = "none";
+        }
+
+        function copyPixKey() {
+            const pixKey = document.getElementById('pixKey').textContent;
+            navigator.clipboard.writeText(pixKey).then(() => {
+                alert('Chave PIX copiada para a área de transferência!');
+            });
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('pixModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
